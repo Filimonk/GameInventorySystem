@@ -11,6 +11,7 @@ public class InventoryGrid : MonoBehaviour
     
     [SerializeField] private Transform slotsPanelTransform = null!;
     [SerializeField] private GridLayoutGroup slotsGridLayoutGroup = null!;
+    [SerializeField] private Transform itemsPanelTransform = null!;
     
     [SerializeField] private GameObject slotForItemPrefab = null!;
     
@@ -44,7 +45,7 @@ public class InventoryGrid : MonoBehaviour
         slotsGridLayoutGroup.constraintCount = WIDTH;
     }
 
-    public bool AddItem(Item item)
+    public bool AddItem(Item item, GameObject itemPrefab)
     {
         int x = -1;
         int y = -1;
@@ -67,7 +68,10 @@ public class InventoryGrid : MonoBehaviour
             return false;
         }
 
-        item.InstantiateMonoBehaviourObject(slotsForItems[x][y].transform.position);
+        HammerView view = Instantiate(itemPrefab, itemsPanelTransform).GetComponent<HammerView>();
+        view.transform.position = slotsForItems[x][y].transform.position;
+        view.Init(item);
+        
         field[x][y] = item;
         fieldPosition = new Vector2Int(x, y);
         item.OnDestroy += SlotRelease;

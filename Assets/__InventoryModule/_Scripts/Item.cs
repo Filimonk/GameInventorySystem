@@ -17,11 +17,18 @@ public abstract class Item
         get => description;
         set => description = value;
     }
-    public event Action OnDestroy;
     
-    // метод, в котором должно вызываться инстанцирование MonoBehaviour-объекта
-    // с координатами position и размером size - отображение объекта, соответствующее объекту данного типа
-    public abstract void InstantiateMonoBehaviourObject(Vector3 position);
+    public event Action OnDestroy;
+    public event Action OnValueDecrease;
+    
+    protected void InvokeOnDestroy()
+    {
+        OnDestroy?.Invoke();
+    }
+    protected void InvokeOnValueDecrease()
+    {
+        OnValueDecrease?.Invoke();
+    }
 
     // метод, вызываемый при использовании предмета из инвентаря
     public abstract void ApplyOneTime();

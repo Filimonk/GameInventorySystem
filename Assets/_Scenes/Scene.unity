@@ -679,7 +679,7 @@ MonoBehaviour:
     m_Right: 25
     m_Top: 25
     m_Bottom: 25
-  m_ChildAlignment: 1
+  m_ChildAlignment: 4
   m_Spacing: 25
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
@@ -1294,6 +1294,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotsPanelTransform: {fileID: 1068903831}
   slotsGridLayoutGroup: {fileID: 1068903832}
+  itemsPanelTransform: {fileID: 983549483}
   slotForItemPrefab: {fileID: 5328421003418053539, guid: 5b7a00b068857ed4bbdbdf6324226da2, type: 3}
 --- !u!114 &3517183907207756792
 MonoBehaviour:
@@ -1360,6 +1361,7 @@ GameObject:
   - component: {fileID: 7128155765341846045}
   - component: {fileID: 5196247977852843425}
   - component: {fileID: 7563015036635650609}
+  - component: {fileID: 9006660596260423272}
   m_Layer: 5
   m_Name: GameCanvas
   m_TagString: Untagged
@@ -1472,6 +1474,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &9006660596260423272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6006154290430697941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abdc75152b0f496b9dd9fa8ccc43fe5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryParameters: {fileID: 1812190752}
+  hammerPrefab: {fileID: 3372504496619168544, guid: 9ac33261a34175a419b70688eacb7a4a, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -46,10 +47,17 @@ public class InventoryParameters : MonoBehaviour
         inventoryPanelActivated = false;
     }
 
-    private List<Item> requestQueue = new List<Item>();
-    public void AddItem(Item item)
+    private List<Tuple<Item, GameObject>> requestQueue = new List<Tuple<Item, GameObject>>();
+    public void AddItem(Item item, GameObject itemPrefab)
     {
-        requestQueue.Add(item);
+        if (inventoryPanelActivated)
+        {
+            inventoryGrid.AddItem(item, itemPrefab);
+        }
+        else
+        {
+            requestQueue.Add(new Tuple<Item, GameObject>(item, itemPrefab));
+        }
     }
 
     void Update()
@@ -59,9 +67,9 @@ public class InventoryParameters : MonoBehaviour
             inventoryPanel.SetActive(true);
             inventoryPanelActivated = true;
 
-            foreach (var item in requestQueue)
+            foreach (var request in requestQueue)
             {
-                if (!inventoryGrid.AddItem(item))
+                if (!inventoryGrid.AddItem(request.Item1, request.Item2))
                 {
                     Debug.Log("Объект не добавлен - инвентарь переполнен");
                 }
