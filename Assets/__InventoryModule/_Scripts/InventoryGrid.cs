@@ -27,9 +27,6 @@ public class InventoryGrid : MonoBehaviour
     
     public void Start()
     {
-        slotsGridLayoutGroup.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
-        slotsGridLayoutGroup.constraintCount = WIDTH;
-        
         for (int i = 0; i < HEIGHT; ++i)
         {
             slotsForItems.Add(new List<GameObject>());
@@ -42,6 +39,9 @@ public class InventoryGrid : MonoBehaviour
                 field[i].Add(null);
             }
         }
+        
+        slotsGridLayoutGroup.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
+        slotsGridLayoutGroup.constraintCount = WIDTH;
     }
 
     public bool AddItem(Item item)
@@ -73,6 +73,33 @@ public class InventoryGrid : MonoBehaviour
         item.OnDestroy += SlotRelease;
 
         return true;
+    }
+
+    private Vector2Int GetCoordinates(Vector3 position)
+    {
+        Debug.Log(position.x + " " + position.y);
+        
+        for (int i = 0; i < HEIGHT; ++i)
+        {
+            for (int j = 0; j < WIDTH; ++j)
+            {
+                if (position.Equals(slotsForItems[i][j].transform.position))
+                {
+                    return new Vector2Int(i, j);
+                }
+            }
+        }
+        
+        return new Vector2Int(0, 0);
+    }
+
+    public Item? GetItem(Vector3 position)
+    {
+        Vector2Int coordinates = GetCoordinates(position);
+        
+        Debug.Log(coordinates.x + " " + coordinates.y);
+
+        return field[coordinates.x][coordinates.y];
     }
 
     private void SlotRelease()

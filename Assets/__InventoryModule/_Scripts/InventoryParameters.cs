@@ -19,9 +19,6 @@ public class InventoryParameters : MonoBehaviour
     public void Awake()
     {
         inventoryPanel = transform.Find("InventoryPanel").gameObject;
-        inventoryPanel.GetComponent<InventoryManager>().ProcessTheDescriptionBlockDisplay(descriptionBlock);
-        inventoryPanel.SetActive(false);
-        inventoryPanelActivated = false;
 
 
         GameObject inventoryGridPanel = inventoryPanel.transform.Find("InventoryGridPanel").gameObject;
@@ -37,6 +34,12 @@ public class InventoryParameters : MonoBehaviour
 
         itemName.font = descriptionFieldFont;
         itemDescription.font = descriptionFieldFont;
+        
+        
+        inventoryPanel.GetComponent<InventoryManager>().Init(inventoryGridPanel, itemName, 
+                                                             itemDescription, descriptionBlock);
+        inventoryPanel.SetActive(false);
+        inventoryPanelActivated = false;
     }
 
     void Update()

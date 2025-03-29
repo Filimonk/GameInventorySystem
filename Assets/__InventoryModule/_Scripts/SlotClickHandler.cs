@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using JetBrains.Annotations;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class SlotClickHandler : MonoBehaviour
@@ -8,15 +9,15 @@ public class SlotClickHandler : MonoBehaviour
     private GameObject inventoryPanel;
     private InventoryManager inventoryManager;
 
-    void Start()
+    public void Start()
     {
         slotButton.onClick.AddListener(OnSlotButtonClick);
         
-        inventoryPanel = GameObject.Find("InventoryGridPanel");
+        inventoryPanel = GameObject.Find("InventoryPanel");
         inventoryManager = inventoryPanel.GetComponent<InventoryManager>();
     }
 
-    void OnSlotButtonClick()
+    public void OnSlotButtonClick()
     {
         inventoryManager.ApplyOneTime(transform.position);
     }
