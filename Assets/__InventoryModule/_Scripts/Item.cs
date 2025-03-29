@@ -21,10 +21,6 @@ public abstract class Item
     public event Action OnDestroy;
     public event Action OnValueDecrease;
     
-    protected void InvokeOnDestroy()
-    {
-        OnDestroy?.Invoke();
-    }
     protected void InvokeOnValueDecrease()
     {
         OnValueDecrease?.Invoke();

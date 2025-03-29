@@ -29,6 +29,7 @@ public class HammerView : MonoBehaviour
     private void OnDestroy()
     {
         item.OnDestroy -= CellViewDestroy;
+        item.OnValueDecrease -= DecreaseColor;
     }
     
     private void DecreaseColor()

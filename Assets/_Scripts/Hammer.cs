@@ -24,7 +24,7 @@ public class Hammer : Item
         }
         else
         {
-            InvokeOnDestroy();
+            Destroy();
         }
     }
 }
