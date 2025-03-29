@@ -18,10 +18,10 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public void Init(GameObject inventoryGridPanel, TextMeshProUGUI itemName, 
+    public void Init(InventoryGrid inventoryGrid, TextMeshProUGUI itemName, 
                      TextMeshProUGUI itemDescription, bool DescriptionBlockFlag)
     {
-        inventoryGrid = inventoryGridPanel.GetComponent<InventoryGrid>();
+        this.inventoryGrid = inventoryGrid;
         this.itemName = itemName;
         this.itemDescription = itemDescription;
 

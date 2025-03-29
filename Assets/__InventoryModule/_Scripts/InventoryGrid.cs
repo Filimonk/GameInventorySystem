@@ -67,7 +67,7 @@ public class InventoryGrid : MonoBehaviour
             return false;
         }
 
-        //item.InstantiateMonoBehaviourObject();
+        item.InstantiateMonoBehaviourObject(slotsForItems[x][y].transform.position);
         field[x][y] = item;
         fieldPosition = new Vector2Int(x, y);
         item.OnDestroy += SlotRelease;

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -9,6 +10,8 @@ public class InventoryParameters : MonoBehaviour
     [SerializeField] private KeyCode inventoryMenuKey = KeyCode.I;
     private GameObject inventoryPanel;
     private bool inventoryPanelActivated;
+
+    private InventoryGrid inventoryGrid;
     
     [SerializeField] private TMP_FontAsset descriptionFieldFont;
     private TextMeshProUGUI itemName;
@@ -22,7 +25,8 @@ public class InventoryParameters : MonoBehaviour
 
 
         GameObject inventoryGridPanel = inventoryPanel.transform.Find("InventoryGridPanel").gameObject;
-        inventoryGridPanel.GetComponent<InventoryGrid>().SetWidthAndHeightOfInventoryGrid(WIDTH, HEIGHT);
+        inventoryGrid = inventoryGridPanel.GetComponent<InventoryGrid>();
+        inventoryGrid.SetWidthAndHeightOfInventoryGrid(WIDTH, HEIGHT);
         
         
         GameObject observationPanel = inventoryPanel.transform.Find("ObservationPanel").gameObject;
@@ -36,10 +40,16 @@ public class InventoryParameters : MonoBehaviour
         itemDescription.font = descriptionFieldFont;
         
         
-        inventoryPanel.GetComponent<InventoryManager>().Init(inventoryGridPanel, itemName, 
+        inventoryPanel.GetComponent<InventoryManager>().Init(inventoryGrid, itemName, 
                                                              itemDescription, descriptionBlock);
         inventoryPanel.SetActive(false);
         inventoryPanelActivated = false;
+    }
+
+    private List<Item> requestQueue = new List<Item>();
+    public void AddItem(Item item)
+    {
+        requestQueue.Add(item);
     }
 
     void Update()
@@ -48,6 +58,14 @@ public class InventoryParameters : MonoBehaviour
         {
             inventoryPanel.SetActive(true);
             inventoryPanelActivated = true;
+
+            foreach (var item in requestQueue)
+            {
+                if (!inventoryGrid.AddItem(item))
+                {
+                    Debug.Log("Объект не добавлен - инвентарь переполнен");
+                }
+            }
         }
         else if (Input.GetKeyDown(inventoryMenuKey) && inventoryPanelActivated)
         {
