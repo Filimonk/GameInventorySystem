@@ -11,12 +11,13 @@ public class InventoryGrid : MonoBehaviour
     
     [SerializeField] private Transform slotsPanelTransform = null!;
     [SerializeField] private GridLayoutGroup slotsGridLayoutGroup = null!;
-    [SerializeField] private Transform itemsPanelTransform = null!;
     
     [SerializeField] private GameObject slotForItemPrefab = null!;
     
     private List<List<GameObject>> slotsForItems = new List<List<GameObject>>();
     private List<List<Item?>> field = new List<List<Item?>>();
+    
+    private Vector2Int fieldPosition;
     
     public void SetWidthAndHeightOfInventoryGrid(int WIDTH, int HEIGHT)
     {
@@ -66,11 +67,16 @@ public class InventoryGrid : MonoBehaviour
             return false;
         }
 
-        /*
-        ItemView view = Instantiate(itemViewPrefab, itemsPanelTransform);
-        view.Init(newCell);
-        */
+        //item.InstantiateMonoBehaviourObject();
+        field[x][y] = item;
+        fieldPosition = new Vector2Int(x, y);
+        item.OnDestroy += SlotRelease;
 
         return true;
+    }
+
+    private void SlotRelease()
+    {
+        field[fieldPosition.x][fieldPosition.y] = null;
     }
 }
